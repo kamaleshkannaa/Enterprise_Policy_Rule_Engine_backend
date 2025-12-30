@@ -20,18 +20,12 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Spring Boot 3 compatible
-        // Supports multiple origins & credentials
         config.setAllowedOriginPatterns(
                 Arrays.asList(allowedOrigins.split(","))
         );
 
         config.setAllowedMethods(List.of(
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "OPTIONS"
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));
 
         config.setAllowedHeaders(List.of("*"));
