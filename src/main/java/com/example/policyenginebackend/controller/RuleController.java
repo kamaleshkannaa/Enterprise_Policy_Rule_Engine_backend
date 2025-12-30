@@ -88,7 +88,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/rules")
-@CrossOrigin
 public class RuleController {
 
     private final RuleRepository ruleRepository;

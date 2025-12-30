@@ -64,17 +64,14 @@ public class RuleConditionController {
             @PathVariable Long ruleId,
             @PathVariable Long id
     ) {
-        RuleCondition condition = conditionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Condition not found"));
+        int deleted = conditionRepository.deleteByIdAndRuleId(id, ruleId);
 
-        if (!condition.getRule().getId().equals(ruleId)) {
-            return ResponseEntity.badRequest().body("Invalid rule-condition mapping");
+        if (deleted == 0) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Condition not found for this rule");
         }
 
-        conditionRepository.delete(condition);
         return ResponseEntity.ok("Condition deleted successfully");
     }
-
-
-
 }
