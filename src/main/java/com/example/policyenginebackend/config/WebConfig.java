@@ -5,16 +5,14 @@ import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins(
-                        "http://localhost:5173",
-                        "https://enterprise-policy-rule-engine.vercel.app"  // ← ADD THIS
-                )
+        registry.addMapping("/**")  // ALL endpoints
+                .allowedOriginPatterns("*")  // ALL origins
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(false);
     }
 }
+
 

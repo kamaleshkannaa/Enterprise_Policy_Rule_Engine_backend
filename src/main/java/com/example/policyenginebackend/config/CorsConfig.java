@@ -1,50 +1,6 @@
-//package com.example.policyenginebackend.config;
-//
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.cors.CorsConfiguration;
-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-//import org.springframework.web.filter.CorsFilter;
-//
-//import java.util.Arrays;
-//import java.util.List;
-//
-//@Configuration
-//public class CorsConfig {
-//
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        CorsConfiguration config = new CorsConfiguration();
-//
-//        // Frontend URL
-//        config.setAllowedOriginPatterns(
-//                Arrays.asList(allowedOrigins.split(","))
-//        );
-//
-//        // Allow all REST methods
-//        config.setAllowedMethods(List.of(
-//                "GET", "POST", "PUT", "DELETE", "OPTIONS"
-//        ));
-//
-//        // Allow all headers
-//        config.setAllowedHeaders(List.of("*"));
-//
-//        // Allow cookies / auth headers
-//        config.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source =
-//                new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", config);
-//
-//        return new CorsFilter(source);
-//    }
-//}
-
-
 package com.example.policyenginebackend.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Value;  // ← ADD THIS IMPORT
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -57,27 +13,21 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-    @Value("${app.cors.allowed-origins}")
+    @Value("${app.cors.allowed-origins:*}")  // ← DEFAULT "*" if missing
     private String allowedOrigins;
 
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Spring Boot 3 correct way
-        config.setAllowedOriginPatterns(
-                Arrays.asList(allowedOrigins.split(","))
-        );
+        // Split comma-separated origins or use "*"
+        config.setAllowedOriginPatterns(Arrays.asList(allowedOrigins.split(",")));
 
-        config.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "DELETE", "OPTIONS"
-        ));
-
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
