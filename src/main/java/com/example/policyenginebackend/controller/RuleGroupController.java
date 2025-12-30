@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rule-groups")
-@CrossOrigin
+
 public class RuleGroupController {
 
     private final RuleGroupRepository repository;

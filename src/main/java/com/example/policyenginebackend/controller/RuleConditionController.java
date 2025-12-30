@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/rules/{ruleId}/conditions")
-@CrossOrigin("*")
+
 public class RuleConditionController {
 
     private final RuleConditionRepository conditionRepository;

@@ -7,7 +7,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/engine")
-@CrossOrigin(origins = "*")
+
 public class RuleEngineController {
 
     private final RuleEngineService ruleEngineService;

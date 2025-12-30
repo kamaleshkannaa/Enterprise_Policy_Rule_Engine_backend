@@ -38,7 +38,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/decision-logs")
-@CrossOrigin(origins = "*")
+
 public class DecisionLogController {
 
     private final DecisionLogRepository decisionLogRepository;
